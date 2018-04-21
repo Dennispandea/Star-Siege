@@ -3,13 +3,11 @@ package net.kitz.starsiege;
 import java.util.HashMap;
 
 public enum MapAsteroid {
-
+    //                id,ore,size,amount,health,cooldown
     SMALL_WORTHLESS(0, 0, 15, 0, 50, 300),
     SMALL_IRON(1, 1, 15, 25, 50, 300),
     SMALL_COBALT(2, 2, 15, 25, 50, 300),
-    SMALL_URANIUM(3, 3, 15, 25, 50, 300),
-    BACKGROUND(5, 0, 0, 0, 0, 0),
-    EMPTY(4, 0, 0, 0, 0, 0);
+    SMALL_URANIUM(3, 3, 15, 25, 50, 300);
 
     private int nAsteroidID;
     private int nOreID;
@@ -58,6 +56,7 @@ public enum MapAsteroid {
     private static HashMap<Integer, MapAsteroid> AsteroidID;
 
     static {
+        AsteroidID = new HashMap<Integer, MapAsteroid>();
         for (MapAsteroid asteroidType : MapAsteroid.values()) {
             AsteroidID.put(asteroidType.getnAsteroidID(), asteroidType);
 
