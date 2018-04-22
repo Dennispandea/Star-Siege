@@ -1,4 +1,4 @@
-package net.kitz.starsiege;
+package net.kitz.starsiege.world;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 

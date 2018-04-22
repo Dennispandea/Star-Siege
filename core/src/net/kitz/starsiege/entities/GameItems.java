@@ -1,8 +1,8 @@
-package net.kitz.starsiege;
+package net.kitz.starsiege.entities;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
-public abstract class GameWeapons {
+public abstract class GameItems {
 
 
     public abstract void render(OrthographicCamera camera);
