@@ -12,15 +12,15 @@ public abstract class Entity {
     protected double dVelocityX = 0;
     protected GameMap map;
 
-    public Entity(float x, float y, Vector2 pos, EntityType type, GameMap map) {
+    public Entity(float x, float y, EntityType type, GameMap map) {
         this.pos = new Vector2(x, y);
         this.type = type;
         this.map = map;
     }
 
     public void update(float fDeltaTime, float fGravity) {
-
-
+        pos.y += this.dVelocityY;
+        pos.x += this.dVelocityX;
     }
 
 

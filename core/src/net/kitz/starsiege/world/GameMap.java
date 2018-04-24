@@ -2,22 +2,36 @@ package net.kitz.starsiege.world;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import net.kitz.starsiege.entities.Entity;
+import net.kitz.starsiege.entities.Player;
+
+import java.util.ArrayList;
 
 import static net.kitz.starsiege.world.MapAsteroid.ASTEROID_SIZE;
 
 public abstract class GameMap {
 
-    public abstract class AsteroidMap {
+    protected ArrayList<Entity> entities;
 
+    public GameMap() {
+        entities = new ArrayList<Entity>();
+        entities.add(new Player(20, 20, this));
 
     }
 
-    public void render(OrthographicCamera camera, SpriteBatch batch) {
 
+    public void render(OrthographicCamera camera, SpriteBatch batch) {
+        for (Entity entity : entities) {
+            entity.render(batch);
+
+        }
     }
 
     public void update(float delta) {
+        for (Entity entity : entities) {
+            entity.update(delta, -9.8f);
 
+        }
     }
 
     public abstract void dispose();

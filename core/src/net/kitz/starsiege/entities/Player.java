@@ -14,26 +14,38 @@ public class Player extends Entity {
 
     Texture image;
 
-    public Player(float x, float y, Vector2 pos, GameMap map) {
-        super(x, y, pos, EntityType.PLAYER, map);
+    public Player(float x, float y, GameMap map) {
+        super(x, y, EntityType.PLAYER, map);
         image = new Texture("Ship.png");
     }
 
     @Override
     public void update(float fDeltaTime, float fGravity) {
 
-        if (Gdx.input.isKeyPressed(Input.Keys.W) && dVelocityY < 100)
+        if (Gdx.input.isKeyPressed(Input.Keys.W) && dVelocityY < 100) {
             this.dVelocityY += nPlayerSpeed / getdMass();
+        }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.S) && dVelocityY < -100)
-            this.dVelocityY -= nPlayerSpeed / getdMass();
+        if (Gdx.input.isKeyPressed(Input.Keys.S) && dVelocityY > -100) {
+            this.dVelocityY += -nPlayerSpeed / getdMass();
+        }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.D) && dVelocityX < 100)
+        if (Gdx.input.isKeyPressed(Input.Keys.D) && dVelocityX < 100) {
             this.dVelocityX += nPlayerSpeed / getdMass();
+        }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.A) && dVelocityX < -100)
-            this.dVelocityX -= nPlayerSpeed / getdMass();
-
+        if (Gdx.input.isKeyPressed(Input.Keys.A) && dVelocityX > -100) {
+            this.dVelocityX += -nPlayerSpeed / getdMass();
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            if (this.dVelocityX > 1 || this.dVelocityY > 1) {
+                this.dVelocityY *= 0.95;
+                this.dVelocityX *= 0.95;
+            } else {
+                this.dVelocityY = 0;
+                this.dVelocityX = 0;
+            }
+        }
         super.update(fDeltaTime, fGravity);
     }
 
