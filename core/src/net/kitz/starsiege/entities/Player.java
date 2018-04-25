@@ -12,35 +12,35 @@ public class Player extends Entity {
     private int nPlayerSpeed = 4;
     private int nPlayerRotSpeed;
 
-    Texture txImage;
-    Sprite SprPlayer;
+    private Texture txImage= new Texture("Ship.png");
+    private Sprite SprPlayer;
 
     public Player(float x, float y, GameMap map) {
         super(x, y, EntityType.PLAYER, map);
         SprPlayer = new Sprite(txImage, 16, 22);
-        txImage = new Texture("Ship.png");
+        SprPlayer.scale(3f);
     }
 
     @Override
     public void update(float fDeltaTime, float fGravity) {
 
-        if (Gdx.input.isKeyPressed(Input.Keys.W) && dVelocityY < 100) {
+        if (Gdx.input.isKeyPressed(Input.Keys.W) && dVelocityY < 20) {
             this.dVelocityY += nPlayerSpeed / getdMass();
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.S) && dVelocityY > -100) {
+        if (Gdx.input.isKeyPressed(Input.Keys.S) && dVelocityY > -20) {
             this.dVelocityY += -nPlayerSpeed / getdMass();
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.D) && dVelocityX < 100) {
+        if (Gdx.input.isKeyPressed(Input.Keys.D) && dVelocityX < 20) {
             this.dVelocityX += nPlayerSpeed / getdMass();
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.A) && dVelocityX > -100) {
+        if (Gdx.input.isKeyPressed(Input.Keys.A) && dVelocityX > -20) {
             this.dVelocityX += -nPlayerSpeed / getdMass();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            if (this.dVelocityX < 1 && this.dVelocityY < 1) {
+            if (this.dVelocityX < 1 && this.dVelocityY < 1 && this.dVelocityX > -1 && this.dVelocityY >  -1) {
                 this.dVelocityY = 0;
                 this.dVelocityX = 0;
             } else {
@@ -55,7 +55,5 @@ public class Player extends Entity {
     public void render(SpriteBatch batch) {
         batch.draw(SprPlayer, getPos().x, getPos().y, getnWidth(), getnLength());
 
-
     }
-
 }
