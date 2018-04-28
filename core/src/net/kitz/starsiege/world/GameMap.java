@@ -23,7 +23,6 @@ public abstract class GameMap {
     public void render(OrthographicCamera camera, SpriteBatch batch) {
         for (Entity entity : entities) {
             entity.render(batch);
-
         }
     }
 
