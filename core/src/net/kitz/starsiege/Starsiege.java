@@ -21,8 +21,10 @@ public class Starsiege extends ApplicationAdapter {
     public void create() {
         batch = new SpriteBatch();
 
+
         cam = new OrthographicCamera();
         cam.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
         cam.update();
 
         gameMap = new TiledGameMap();

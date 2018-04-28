@@ -6,20 +6,21 @@ import net.kitz.starsiege.world.GameMap;
 
 public abstract class Entity {
 
-    protected Vector2 pos;
+    private Vector2 pos;
     protected EntityType type;
     protected double dVelocityY = 0;
     protected double dVelocityX = 0;
     protected GameMap map;
 
-    public Entity(float x, float y, Vector2 pos, EntityType type, GameMap map) {
-        this.pos = new Vector2(x, y);
+    Entity(float x, float y, EntityType type, GameMap map) {
+        this.setPos(new Vector2(x, y));
         this.type = type;
         this.map = map;
     }
 
     public void update(float fDeltaTime, float fGravity) {
-
+        getPos().y += this.dVelocityY;
+        getPos().x += this.dVelocityX;
 
     }
 
@@ -36,11 +37,11 @@ public abstract class Entity {
     }
 
     public float getX() {
-        return pos.x;
+        return getPos().x;
     }
 
     public float getY() {
-        return pos.y;
+        return getPos().y;
     }
 
     public int getnWidth() {
@@ -56,4 +57,7 @@ public abstract class Entity {
     }
 
 
+    public Vector2 getPos() {
+        return pos;
+    }
 }

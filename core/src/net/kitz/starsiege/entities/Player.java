@@ -3,8 +3,8 @@ package net.kitz.starsiege.entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import net.kitz.starsiege.world.GameMap;
 
 public class Player extends Entity {
@@ -12,33 +12,48 @@ public class Player extends Entity {
     private int nPlayerSpeed = 4;
     //private int nPlayerRotSpeed;
 
-    Texture image;
+    private Texture txImage= new Texture("Ship.png");
+    private Sprite SprPlayer;
 
-    public Player(float x, float y, Vector2 pos, GameMap map) {
-        super(x, y, pos, EntityType.PLAYER, map);
-        image = new Texture("Ship.png");
+    public Player(float x, float y, GameMap map) {
+        super(x, y, EntityType.PLAYER, map);
+        SprPlayer = new Sprite(txImage, 16, 22);
+        SprPlayer.scale(3f);
     }
 
     @Override
     public void update(float fDeltaTime, float fGravity) {
 
-        if (Gdx.input.isKeyPressed(Input.Keys.W) && dVelocityY < 100)
+        if (Gdx.input.isKeyPressed(Input.Keys.W) && dVelocityY < 20) {
             this.dVelocityY += nPlayerSpeed / getdMass();
+        }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.S) && dVelocityY < -100)
-            this.dVelocityY -= nPlayerSpeed / getdMass();
+        if (Gdx.input.isKeyPressed(Input.Keys.S) && dVelocityY > -20) {
+            this.dVelocityY += -nPlayerSpeed / getdMass();
+        }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.D) && dVelocityX < 100)
+        if (Gdx.input.isKeyPressed(Input.Keys.D) && dVelocityX < 20) {
             this.dVelocityX += nPlayerSpeed / getdMass();
+        }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.A) && dVelocityX < -100)
-            this.dVelocityX -= nPlayerSpeed / getdMass();
-
+        if (Gdx.input.isKeyPressed(Input.Keys.A) && dVelocityX > -20) {
+            this.dVelocityX += -nPlayerSpeed / getdMass();
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            if (this.dVelocityX < 1 && this.dVelocityY < 1 && this.dVelocityX > -1 && this.dVelocityY >  -1) {
+                this.dVelocityY = 0;
+                this.dVelocityX = 0;
+            } else {
+                this.dVelocityY *= 0.95;
+                this.dVelocityX *= 0.95;
+            }
+        }
         super.update(fDeltaTime, fGravity);
     }
 
     @Override
     public void render(SpriteBatch batch) {
-        batch.draw(image, pos.x, pos.y, getnWidth(), getnLength());
+        batch.draw(SprPlayer, getPos().x, getPos().y, getnWidth(), getnLength());
+
     }
 }
