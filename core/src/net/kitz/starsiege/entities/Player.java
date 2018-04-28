@@ -10,7 +10,7 @@ import net.kitz.starsiege.world.GameMap;
 public class Player extends Entity {
 
     private int nPlayerSpeed = 4;
-    private int nPlayerRotSpeed;
+    //private int nPlayerRotSpeed;
 
     Texture image;
 
