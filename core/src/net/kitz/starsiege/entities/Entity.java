@@ -8,22 +8,21 @@ public abstract class Entity {
 
     private Vector2 pos;
     protected EntityType type;
-    protected double dVelocityY = 0;
-    protected double dVelocityX = 0;
+    protected float dVelocityY = 0;
+    protected float dRot = 0;
+    protected float dVelocityX = 0;
     protected GameMap map;
 
     Entity(float x, float y, EntityType type, GameMap map) {
         this.setPos(new Vector2(x, y));
+        this.dRot = dRot;
         this.type = type;
         this.map = map;
     }
 
     public void update(float fDeltaTime, float fGravity) {
-        getPos().y += this.dVelocityY;
-        getPos().x += this.dVelocityX;
 
     }
-
 
     public abstract void render(SpriteBatch batch);
 
@@ -38,6 +37,10 @@ public abstract class Entity {
 
     public float getX() {
         return getPos().x;
+    }
+
+    public float getdRot() {
+        return dRot;
     }
 
     public float getY() {
@@ -55,7 +58,6 @@ public abstract class Entity {
     public double getdMass() {
         return type.getdMass();
     }
-
 
     public Vector2 getPos() {
         return pos;
