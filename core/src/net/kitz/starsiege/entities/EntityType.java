@@ -23,7 +23,7 @@ public enum EntityType {
         return nWidth;
     }
 
-    public int getnLength() {
+    public int getLength() {
         return nLength;
     }
 

@@ -11,11 +11,11 @@ import static net.kitz.starsiege.world.MapAsteroid.ASTEROID_SIZE;
 
 public abstract class GameMap {
 
-    protected ArrayList<Entity> entities;
+    public ArrayList<Entity> entities;
 
     public GameMap() {
         entities = new ArrayList<Entity>();
-        entities.add(new Player(20, 20, this));
+        entities.add(new Player(20, 20));
 
     }
 

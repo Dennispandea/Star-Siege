@@ -5,23 +5,24 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import net.kitz.starsiege.world.GameMap;
 
 public class Player extends Entity {
 
     private int nPlayerSpeed = 4;
     private int nPlayerRotMult = 1;
-    private float fDirX, fDirY;
-
+    private float fDirX, fDirY, fDirAltX, fDirAltY;
     private Texture txImage = new Texture("Ship.png");
     private Sprite SprPlayer;
+    private GameMap gameMap;
 
-    public Player(float x, float y, GameMap map) {
-        super(x, y, EntityType.PLAYER, map);
+    public Player(float x, float y) {
+        super(x, y, EntityType.PLAYER);
         SprPlayer = new Sprite(txImage, 16, 22);
+        SprPlayer.setOrigin(SprPlayer.getWidth() / 2, SprPlayer.getHeight() / 2);
         SprPlayer.scale(1.3f);
-        SprPlayer.setSize(getnWidth(), getnLength());
-
+        SprPlayer.setSize(getWidth(), getLength());
     }
 
     @Override
@@ -31,50 +32,69 @@ public class Player extends Entity {
 
         fDirX = (float) Math.cos(Math.toRadians(SprPlayer.getRotation() + 90));
         fDirY = (float) Math.sin(Math.toRadians(SprPlayer.getRotation() + 90));
+        fDirAltX = (float) Math.cos(Math.toRadians(SprPlayer.getRotation() + 180));
+        fDirAltY = (float) Math.sin(Math.toRadians(SprPlayer.getRotation() + 180));
 
-        if (Gdx.input.isKeyPressed(Input.Keys.W) && dVelocityY < 20) {
-            this.dVelocityX += fDirX * nPlayerSpeed / (getdMass() * 3);
-            this.dVelocityY += fDirY * nPlayerSpeed / (getdMass() * 3);
+
+        if (Gdx.input.isKeyPressed(Input.Keys.W) && fVelocityY < 20) {
+            this.fVelocityX += fDirX * nPlayerSpeed / (getdMass() * 3);
+            this.fVelocityY += fDirY * nPlayerSpeed / (getdMass() * 3);
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.S) && dVelocityY > -20) {
-            this.dVelocityX -= fDirX * nPlayerSpeed / (getdMass() * 3);
-            this.dVelocityY -= fDirY * nPlayerSpeed / (getdMass() * 3);
+        if (Gdx.input.isKeyPressed(Input.Keys.S) && fVelocityY > -20) {
+            this.fVelocityX -= fDirX * nPlayerSpeed / (getdMass() * 3);
+            this.fVelocityY -= fDirY * nPlayerSpeed / (getdMass() * 3);
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.A) && dRot <= 8) {
-            this.dRot += 1.5 * (nPlayerRotMult / (getdMass() / getnLength()));
-        } else if (!Gdx.input.isKeyPressed(Input.Keys.A)) {
-            this.dRot *= 0.65;
+        if (Gdx.input.isKeyPressed(Input.Keys.A) && fRot <= 8) {
+            this.fVelocityX += fDirAltX * nPlayerSpeed / (getdMass() * 3);
+            this.fVelocityY += fDirAltY * nPlayerSpeed / (getdMass() * 3);
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.D) && dRot <= 8) {
-            this.dRot -= (nPlayerRotMult / (getdMass() / getnLength()));
-        } else if (!Gdx.input.isKeyPressed(Input.Keys.D)) {
-            this.dRot *= 0.65;
+        if (Gdx.input.isKeyPressed(Input.Keys.D) && fRot <= 8) {
+            this.fVelocityX -= fDirAltX * nPlayerSpeed / (getdMass() * 3);
+            this.fVelocityY -= fDirAltY * nPlayerSpeed / (getdMass() * 3);
         }
 
+        this.fRot = MathUtils.radiansToDegrees * MathUtils.atan2((720 - Gdx.input.getY()) - 360, Gdx.input.getX() - 640);
 
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            if (this.dVelocityX < 1 && this.dVelocityY < 1 && this.dVelocityX > -1 && this.dVelocityY > -1) {
-                this.dVelocityY = 0;
-                this.dVelocityX = 0;
+            if (this.fVelocityX < 1 && this.fVelocityY < 1 && this.fVelocityX > -1 && this.fVelocityY > -1) {
+                this.fVelocityY = 0;
+                this.fVelocityX = 0;
             } else {
-                this.dVelocityY *= 0.95;
-                this.dVelocityX *= 0.95;
+                this.fVelocityY *= 0.95;
+                this.fVelocityX *= 0.95;
             }
         }
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) getPos().x -= 1;
 
-        getPos().y += this.dVelocityY;
-        getPos().x += this.dVelocityX;
-        SprPlayer.rotate(this.dRot);
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) getPos().x += 1;
+
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) getPos().y += 1;
+
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) getPos().y -= 1;
+
+        if (Gdx.input.isKeyPressed(Input.Keys.R))
+            System.out.println(getPos().x + " " + getPos().y);
+
+
+        if (getPos().x < 0 || getPos().y < 0 || getPos().x + getWidth() > gameMap.nPixelWidth() || getPos().y + getLength() > gameMap.nPixelHeight()) {
+            getPos().x = 1 + getWidth();
+            getPos().y = 1 + getLength();
+        } else {
+            getPos().y += this.fVelocityY;
+            getPos().x += this.fVelocityX;
+        }
+
+        SprPlayer.setRotation(this.fRot - 90);
+
 
         super.update(fDeltaTime, fGravity);
     }
 
     @Override
     public void render(SpriteBatch batch) {
-        //  batch.draw(SprPlayer, getPos().x, getPos().y, getnWidth(), getnLength());
         SprPlayer.draw(batch);
 
     }

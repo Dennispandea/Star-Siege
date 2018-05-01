@@ -15,22 +15,27 @@ public class Starsiege extends ApplicationAdapter {
 
     private SpriteBatch batch;
     private OrthographicCamera cam;
-    private Player player;
-    private GameMap gameMap;
-    private Music music;
+    GameMap gameMap;
+    Player player;
+    Music music;
 
 
     @Override
     public void create() {
         batch = new SpriteBatch();
+
+        music = Gdx.audio.newMusic(Gdx.files.internal("data/music.mp3"));
+        music.play();
+        music.setVolume(0.1f);
+        music.setLooping(true);
+
         cam = new OrthographicCamera();
         cam.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         cam.update();
         gameMap = new TiledGameMap();
+
         player = (Player) gameMap.entities.get(0);
-
-
     }
 
     @Override
@@ -39,10 +44,22 @@ public class Starsiege extends ApplicationAdapter {
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        if (player.getPos().x >= 640 && player.getPos().y >= 360 && player.getPos().x <= 15744 && player.getPos().y <= 16024) {
+            cam.position.set(MathUtils.round(player.getPos().x), MathUtils.round(player.getPos().y), 0);
+        } else if (player.getPos().x >= 640 && player.getPos().y <= 360) {
+            cam.position.set(MathUtils.round(player.getPos().x), 360, 0);
+        } else if (player.getPos().x <= 640 && player.getPos().y >= 360) {
+            cam.position.set(640, MathUtils.round(player.getPos().y), 0);
+        } else if (player.getPos().x >= 15744 && player.getPos().y >= 16024) {
+            cam.position.set(15744, 16024, 0);
+        } else if (player.getPos().x >= 15744 && player.getPos().y <= 16024) {
+            cam.position.set(15744, MathUtils.round(player.getPos().y), 0);
+        } else if (player.getPos().x <= 15744 && player.getPos().y >= 16024) {
+            cam.position.set(MathUtils.round(player.getPos().x), 16024, 0);
+        }
 
-        cam.position.set(MathUtils.round(player.getPos().x), MathUtils.round(player.getPos().y), 0);
+
         cam.update();
-
         gameMap.update(Gdx.graphics.getDeltaTime());
         gameMap.render(cam, batch);
     }
@@ -50,5 +67,6 @@ public class Starsiege extends ApplicationAdapter {
     @Override
     public void dispose() {
         batch.dispose();
+        music.dispose();
     }
 }
