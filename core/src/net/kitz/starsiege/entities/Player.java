@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import net.kitz.starsiege.world.GameMap;
 
 public class Player extends Entity {
 
@@ -14,6 +15,7 @@ public class Player extends Entity {
     private float fDirX, fDirY, fDirAltX, fDirAltY;
     private Texture txImage = new Texture("Ship.png");
     private Sprite SprPlayer;
+    private GameMap gameMap;
 
     public Player(float x, float y) {
         super(x, y, EntityType.PLAYER);
@@ -21,8 +23,6 @@ public class Player extends Entity {
         SprPlayer.setOrigin(SprPlayer.getWidth() / 2, SprPlayer.getHeight() / 2);
         SprPlayer.scale(1.3f);
         SprPlayer.setSize(getWidth(), getLength());
-
-
     }
 
     @Override
@@ -67,9 +67,26 @@ public class Player extends Entity {
                 this.fVelocityX *= 0.95;
             }
         }
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) getPos().x -= 1;
 
-        getPos().y += this.fVelocityY;
-        getPos().x += this.fVelocityX;
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) getPos().x += 1;
+
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) getPos().y += 1;
+
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) getPos().y -= 1;
+
+        if (Gdx.input.isKeyPressed(Input.Keys.R))
+            System.out.println(getPos().x + " " + getPos().y);
+
+
+        if (getPos().x < 0 || getPos().y < 0 || getPos().x + getWidth() > gameMap.nPixelWidth() || getPos().y + getLength() > gameMap.nPixelHeight()) {
+            getPos().x = 1 + getWidth();
+            getPos().y = 1 + getLength();
+        } else {
+            getPos().y += this.fVelocityY;
+            getPos().x += this.fVelocityX;
+        }
+
         SprPlayer.setRotation(this.fRot - 90);
 
 
