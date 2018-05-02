@@ -80,9 +80,11 @@ public abstract class GameMap {
 
     public int nPixelWidth() {
         return this.getWidth() * ASTEROID_SIZE;
+
     }
 
     public int nPixelHeight() {
         return this.getHeight() * ASTEROID_SIZE;
+
     }
 }

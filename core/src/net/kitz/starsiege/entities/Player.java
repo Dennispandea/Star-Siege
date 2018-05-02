@@ -11,11 +11,10 @@ import net.kitz.starsiege.world.GameMap;
 public class Player extends Entity {
 
     private int nPlayerSpeed = 4;
-    private int nPlayerRotMult = 1;
+    private float fRotCorrection[] = new float[2];
     private float fDirX, fDirY, fDirAltX, fDirAltY;
     private Texture txImage = new Texture("Ship.png");
     private Sprite SprPlayer;
-    private GameMap gameMap;
 
     public Player(float x, float y) {
         super(x, y, EntityType.PLAYER);
@@ -56,7 +55,21 @@ public class Player extends Entity {
             this.fVelocityY -= fDirAltY * nPlayerSpeed / (getdMass() * 3);
         }
 
-        this.fRot = MathUtils.radiansToDegrees * MathUtils.atan2((720 - Gdx.input.getY()) - 360, Gdx.input.getX() - 640);
+        if (getPos().x < 640)
+            fRotCorrection[0] = getPos().x - (16380 - 640);
+        else fRotCorrection[0] = 640;
+        if (getPos().y < 360)
+            fRotCorrection[1] = getPos().y - (16380 - 360);
+        else fRotCorrection[1] = 360;
+        if (getPos().x < 640)
+            fRotCorrection[0] = getPos().x;
+        else fRotCorrection[0] = 640;
+        if (getPos().y < 360)
+            fRotCorrection[1] = getPos().y;
+        else fRotCorrection[1] = 360;
+        this.fRot = MathUtils.radiansToDegrees * MathUtils.atan2
+                ((720 - Gdx.input.getY()) - fRotCorrection[1], Gdx.input.getX() - fRotCorrection[0]);
+
 
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             if (this.fVelocityX < 1 && this.fVelocityY < 1 && this.fVelocityX > -1 && this.fVelocityY > -1) {
