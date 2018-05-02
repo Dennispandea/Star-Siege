@@ -17,7 +17,22 @@ public abstract class Entity {
     }
 
     public void update(float fDeltaTime, float fGravity) {
-
+        if (getPos().x < 0) {
+            getPos().x += 1;
+            this.fVelocityX = 0;
+        } else if (getPos().x + getWidth() > 16380) {
+            getPos().x -= 1;
+            this.fVelocityX = 0;
+        } else if (getPos().y < 0) {
+            this.fVelocityY = 0;
+            getPos().y += 1;
+        } else if (getPos().y + getLength() > 16380) {
+            this.fVelocityY = 0;
+            getPos().y -= 1;
+        } else {
+            getPos().y += this.fVelocityY;
+            getPos().x += this.fVelocityX;
+        }
     }
 
     public abstract void render(SpriteBatch batch);
@@ -52,6 +67,6 @@ public abstract class Entity {
     }
 
     public Vector2 getPos() {
-        return pos;
+        return this.pos;
     }
 }

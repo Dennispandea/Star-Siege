@@ -24,7 +24,7 @@ public class Starsiege extends ApplicationAdapter {
     public void create() {
         batch = new SpriteBatch();
 
-        music = Gdx.audio.newMusic(Gdx.files.internal("data/music.mp3"));
+        music = Gdx.audio.newMusic(Gdx.files.internal("data/music/music.mp3"));
         music.play();
         music.setVolume(0.1f);
         music.setLooping(true);
@@ -44,19 +44,9 @@ public class Starsiege extends ApplicationAdapter {
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        if (player.getPos().x >= 640 && player.getPos().y >= 360 && player.getPos().x <= 15744 && player.getPos().y <= 16024) {
-            cam.position.set(MathUtils.round(player.getPos().x), MathUtils.round(player.getPos().y), 0);
-        } else if (player.getPos().x >= 640 && player.getPos().y <= 360) {
-            cam.position.set(MathUtils.round(player.getPos().x), 360, 0);
-        } else if (player.getPos().x <= 640 && player.getPos().y >= 360) {
-            cam.position.set(640, MathUtils.round(player.getPos().y), 0);
-        } else if (player.getPos().x >= 15744 && player.getPos().y >= 16024) {
-            cam.position.set(15744, 16024, 0);
-        } else if (player.getPos().x >= 15744 && player.getPos().y <= 16024) {
-            cam.position.set(15744, MathUtils.round(player.getPos().y), 0);
-        } else if (player.getPos().x <= 15744 && player.getPos().y >= 16024) {
-            cam.position.set(MathUtils.round(player.getPos().x), 16024, 0);
-        }
+        cam.position.set(MathUtils.round(player.getPos().x), MathUtils.round(player.getPos().y), 0);
+        cam.position.x = MathUtils.clamp(cam.position.x, 640, 15744);
+        cam.position.y = MathUtils.clamp(cam.position.y, 360, 16024);
 
 
         cam.update();

@@ -63,29 +63,17 @@ public class Player extends Entity {
                 this.fVelocityY = 0;
                 this.fVelocityX = 0;
             } else {
-                this.fVelocityY *= 0.95;
-                this.fVelocityX *= 0.95;
+                this.fVelocityY *= 0.99;
+                this.fVelocityX *= 0.99;
             }
         }
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) getPos().x -= 1;
-
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) getPos().x += 1;
-
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) getPos().y += 1;
-
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) getPos().y -= 1;
-
         if (Gdx.input.isKeyPressed(Input.Keys.R))
             System.out.println(getPos().x + " " + getPos().y);
 
-
-        if (getPos().x < 0 || getPos().y < 0 || getPos().x + getWidth() > gameMap.nPixelWidth() || getPos().y + getLength() > gameMap.nPixelHeight()) {
-            getPos().x = 1 + getWidth();
-            getPos().y = 1 + getLength();
-        } else {
-            getPos().y += this.fVelocityY;
-            getPos().x += this.fVelocityX;
-        }
 
         SprPlayer.setRotation(this.fRot - 90);
 
