@@ -19,7 +19,8 @@ public class Player extends Entity {
         super(x, y, EntityType.PLAYER);
         SprPlayer = new Sprite(txImage, 124, 108);
         SprPlayer.setOrigin(62, 54);
-        SprPlayer.scale(0.2f);
+        SprPlayer.setScale(0.3f);
+        //SprPlayer.scale(0.5f);
 
     }
 
@@ -34,12 +35,12 @@ public class Player extends Entity {
         fDirAltY = (float) Math.sin(Math.toRadians(SprPlayer.getRotation() + 180));
 
 
-        if (Gdx.input.isKeyPressed(Input.Keys.D) && fVelocityY < 20) {
+        if (Gdx.input.isKeyPressed(Input.Keys.A) && fVelocityY < 20) {
             this.fVelocityX += fDirX * nPlayerSpeed / (getdMass() * 3);
             this.fVelocityY += fDirY * nPlayerSpeed / (getdMass() * 3);
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.A) && fVelocityY > -20) {
+        if (Gdx.input.isKeyPressed(Input.Keys.D) && fVelocityY > -20) {
             this.fVelocityX -= fDirX * nPlayerSpeed / (getdMass() * 3);
             this.fVelocityY -= fDirY * nPlayerSpeed / (getdMass() * 3);
         }
