@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
-import net.kitz.starsiege.world.GameMap;
 
 public class Player extends Entity {
 
@@ -18,10 +17,10 @@ public class Player extends Entity {
 
     public Player(float x, float y) {
         super(x, y, EntityType.PLAYER);
-        SprPlayer = new Sprite(txImage, 16, 22);
-        SprPlayer.setOrigin(SprPlayer.getWidth() / 2, SprPlayer.getHeight() / 2);
-        SprPlayer.scale(1.3f);
-        SprPlayer.setSize(getWidth(), getLength());
+        SprPlayer = new Sprite(txImage, 124, 108);
+        SprPlayer.setOrigin(62, 54);
+        SprPlayer.scale(0.2f);
+
     }
 
     @Override
@@ -35,22 +34,22 @@ public class Player extends Entity {
         fDirAltY = (float) Math.sin(Math.toRadians(SprPlayer.getRotation() + 180));
 
 
-        if (Gdx.input.isKeyPressed(Input.Keys.W) && fVelocityY < 20) {
+        if (Gdx.input.isKeyPressed(Input.Keys.D) && fVelocityY < 20) {
             this.fVelocityX += fDirX * nPlayerSpeed / (getdMass() * 3);
             this.fVelocityY += fDirY * nPlayerSpeed / (getdMass() * 3);
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.S) && fVelocityY > -20) {
+        if (Gdx.input.isKeyPressed(Input.Keys.A) && fVelocityY > -20) {
             this.fVelocityX -= fDirX * nPlayerSpeed / (getdMass() * 3);
             this.fVelocityY -= fDirY * nPlayerSpeed / (getdMass() * 3);
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.A) && fRot <= 8) {
+        if (Gdx.input.isKeyPressed(Input.Keys.S) && fVelocityY > -20) {
             this.fVelocityX += fDirAltX * nPlayerSpeed / (getdMass() * 3);
             this.fVelocityY += fDirAltY * nPlayerSpeed / (getdMass() * 3);
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.D) && fRot <= 8) {
+        if (Gdx.input.isKeyPressed(Input.Keys.W) && fVelocityY > -20) {
             this.fVelocityX -= fDirAltX * nPlayerSpeed / (getdMass() * 3);
             this.fVelocityY -= fDirAltY * nPlayerSpeed / (getdMass() * 3);
         }
@@ -67,6 +66,8 @@ public class Player extends Entity {
         if (getPos().y < 360)
             fRotCorrection[1] = getPos().y;
         else fRotCorrection[1] = 360;
+
+
         this.fRot = MathUtils.radiansToDegrees * MathUtils.atan2
                 ((720 - Gdx.input.getY()) - fRotCorrection[1], Gdx.input.getX() - fRotCorrection[0]);
 
@@ -88,7 +89,7 @@ public class Player extends Entity {
             System.out.println(getPos().x + " " + getPos().y);
 
 
-        SprPlayer.setRotation(this.fRot - 90);
+        SprPlayer.setRotation(this.fRot);
 
 
         super.update(fDeltaTime, fGravity);
