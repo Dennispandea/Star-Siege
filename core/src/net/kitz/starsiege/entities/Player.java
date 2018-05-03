@@ -66,8 +66,6 @@ public class Player extends Entity {
         if (getPos().y < 360)
             fRotCorrection[1] = getPos().y;
         else fRotCorrection[1] = 360;
-
-
         this.fRot = MathUtils.radiansToDegrees * MathUtils.atan2
                 ((720 - Gdx.input.getY()) - fRotCorrection[1], Gdx.input.getX() - fRotCorrection[0]);
 

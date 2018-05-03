@@ -44,7 +44,7 @@ public class Starsiege extends ApplicationAdapter {
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        cam.position.set(MathUtils.round(player.getPos().x), MathUtils.round(player.getPos().y), 0);
+        cam.position.set(MathUtils.round(player.getPos().x + (player.getWidth() / 2)), MathUtils.round(player.getPos().y + (player.getLength() / 2)), 0);
         cam.position.x = MathUtils.clamp(cam.position.x, 640, 15744);
         cam.position.y = MathUtils.clamp(cam.position.y, 360, 16024);
 
