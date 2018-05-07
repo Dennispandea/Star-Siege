@@ -20,7 +20,6 @@ public class Player extends Entity {
         SprPlayer = new Sprite(txImage, 124, 108);
         SprPlayer.setOrigin(62, 54);
         SprPlayer.setScale(0.3f);
-        //SprPlayer.scale(0.5f);
 
     }
 
@@ -55,18 +54,8 @@ public class Player extends Entity {
             this.fVelocityY -= fDirAltY * nPlayerSpeed / (getdMass() * 3);
         }
 
-        if (getPos().x < 640)
-            fRotCorrection[0] = getPos().x - (16380 - 640);
-        else fRotCorrection[0] = 640;
-        if (getPos().y < 360)
-            fRotCorrection[1] = getPos().y - (16380 - 360);
-        else fRotCorrection[1] = 360;
-        if (getPos().x < 640)
-            fRotCorrection[0] = getPos().x;
-        else fRotCorrection[0] = 640;
-        if (getPos().y < 360)
-            fRotCorrection[1] = getPos().y;
-        else fRotCorrection[1] = 360;
+        EdgeDet();
+
         this.fRot = MathUtils.radiansToDegrees * MathUtils.atan2
                 ((720 - Gdx.input.getY()) - fRotCorrection[1], Gdx.input.getX() - fRotCorrection[0]);
 
@@ -92,6 +81,21 @@ public class Player extends Entity {
 
 
         super.update(fDeltaTime, fGravity);
+    }
+
+    private void EdgeDet() {
+        if (getPos().x < 640)
+            fRotCorrection[0] = getPos().x - (16380 - 640);
+        else fRotCorrection[0] = 640;
+        if (getPos().y < 360)
+            fRotCorrection[1] = getPos().y - (16380 - 360);
+        else fRotCorrection[1] = 360;
+        if (getPos().x < 640)
+            fRotCorrection[0] = getPos().x;
+        else fRotCorrection[0] = 640;
+        if (getPos().y < 360)
+            fRotCorrection[1] = getPos().y;
+        else fRotCorrection[1] = 360;
     }
 
     @Override
