@@ -9,31 +9,90 @@ import com.badlogic.gdx.math.MathUtils;
 
 public class Player extends Entity {
 
-    private int nPlayerSpeed = 4;
-    private float fRotCorrection[] = new float[2];
+    private float arfRotCorrection[] = new float[2];
     private float fDirX, fDirY, fDirAltX, fDirAltY;
-    private Texture txImage = new Texture("Ship.png");
-    private Sprite SprPlayer;
+    private Sprite SprPlayer, SprHealth, SprVolume, SprSpeed;
+
 
     public Player(float x, float y) {
         super(x, y, EntityType.PLAYER);
-        SprPlayer = new Sprite(txImage, 124, 108);
+        InitSpr();
         SprPlayer.setOrigin(62, 54);
         SprPlayer.setScale(0.3f);
 
     }
+
+    private void InitSpr() {
+        Texture txPlayer = new Texture("Ship.png");
+        SprPlayer = new Sprite(txPlayer, 124, 108);
+
+        Texture txHP = new Texture("bar.png");
+        Texture txVol = new Texture("bar.png");
+        Texture txSpeed = new Texture("bar.png");
+
+        SprHealth = new Sprite(txHP, 1, 1);
+        SprVolume = new Sprite(txVol, 1, 1);
+        SprSpeed = new Sprite(txSpeed, 1, 1);
+
+        SprVolume.setColor(0, 255, 255, 255);
+        SprHealth.setColor(255, 255, 255, 255);
+        SprSpeed.setColor(0, 255, 255, 255);
+    }
+
 
     @Override
     public void update(float fDeltaTime, float fGravity) {
 
         SprPlayer.setPosition(getPos().x, getPos().y);
 
+        Movement();
+        HudPos();
+        EdgeDet();
+
+        this.fRot = MathUtils.radiansToDegrees * MathUtils.atan2
+                ((720 - Gdx.input.getY()) - arfRotCorrection[1], Gdx.input.getX() - arfRotCorrection[0]);
+
+
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) getPos().x -= 1;
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) getPos().x += 1;
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) getPos().y += 1;
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) getPos().y -= 1;
+        if (Gdx.input.isKeyPressed(Input.Keys.R))
+            System.out.println(getPos().x + " " + getPos().y);
+
+
+        SprPlayer.setRotation(this.fRot);
+
+
+        super.update(fDeltaTime, fGravity);
+    }
+
+    private void HudPos() {
+        SprHealth.setPosition(arfRotCorrection[0] + 32, getPos().y + 122);
+        SprSpeed.setPosition(arfRotCorrection[0] + 32, getPos().y + 64);
+        SprVolume.setPosition(arfRotCorrection[0] + 32, getPos().y + 32);
+
+        SprVolume.setScale(30f);
+        SprSpeed.setScale(30f);
+        SprHealth.setScale(30f);
+    }
+
+    private void Movement() {
         fDirX = (float) Math.cos(Math.toRadians(SprPlayer.getRotation() + 90));
         fDirY = (float) Math.sin(Math.toRadians(SprPlayer.getRotation() + 90));
         fDirAltX = (float) Math.cos(Math.toRadians(SprPlayer.getRotation() + 180));
         fDirAltY = (float) Math.sin(Math.toRadians(SprPlayer.getRotation() + 180));
 
-
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            if (this.fVelocityX < 1 && this.fVelocityY < 1 && this.fVelocityX > -1 && this.fVelocityY > -1) {
+                this.fVelocityY = 0;
+                this.fVelocityX = 0;
+            } else {
+                this.fVelocityY *= 0.99;
+                this.fVelocityX *= 0.99;
+            }
+        }
+        int nPlayerSpeed = 4;
         if (Gdx.input.isKeyPressed(Input.Keys.A) && fVelocityY < 20) {
             this.fVelocityX += fDirX * nPlayerSpeed / (getdMass() * 3);
             this.fVelocityY += fDirY * nPlayerSpeed / (getdMass() * 3);
@@ -53,54 +112,29 @@ public class Player extends Entity {
             this.fVelocityX -= fDirAltX * nPlayerSpeed / (getdMass() * 3);
             this.fVelocityY -= fDirAltY * nPlayerSpeed / (getdMass() * 3);
         }
-
-        EdgeDet();
-
-        this.fRot = MathUtils.radiansToDegrees * MathUtils.atan2
-                ((720 - Gdx.input.getY()) - fRotCorrection[1], Gdx.input.getX() - fRotCorrection[0]);
-
-
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            if (this.fVelocityX < 1 && this.fVelocityY < 1 && this.fVelocityX > -1 && this.fVelocityY > -1) {
-                this.fVelocityY = 0;
-                this.fVelocityX = 0;
-            } else {
-                this.fVelocityY *= 0.99;
-                this.fVelocityX *= 0.99;
-            }
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) getPos().x -= 1;
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) getPos().x += 1;
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)) getPos().y += 1;
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) getPos().y -= 1;
-        if (Gdx.input.isKeyPressed(Input.Keys.R))
-            System.out.println(getPos().x + " " + getPos().y);
-
-
-        SprPlayer.setRotation(this.fRot);
-
-
-        super.update(fDeltaTime, fGravity);
     }
 
     private void EdgeDet() {
         if (getPos().x < 640)
-            fRotCorrection[0] = getPos().x - (16380 - 640);
-        else fRotCorrection[0] = 640;
+            arfRotCorrection[0] = getPos().x - (16380 - 640);
+        else arfRotCorrection[0] = 640;
         if (getPos().y < 360)
-            fRotCorrection[1] = getPos().y - (16380 - 360);
-        else fRotCorrection[1] = 360;
+            arfRotCorrection[1] = getPos().y - (16380 - 360);
+        else arfRotCorrection[1] = 360;
         if (getPos().x < 640)
-            fRotCorrection[0] = getPos().x;
-        else fRotCorrection[0] = 640;
+            arfRotCorrection[0] = getPos().x;
+        else arfRotCorrection[0] = 640;
         if (getPos().y < 360)
-            fRotCorrection[1] = getPos().y;
-        else fRotCorrection[1] = 360;
+            arfRotCorrection[1] = getPos().y;
+        else arfRotCorrection[1] = 360;
     }
 
     @Override
     public void render(SpriteBatch batch) {
         SprPlayer.draw(batch);
 
+        SprVolume.draw(batch);
+        SprSpeed.draw(batch);
+        SprHealth.draw(batch);
     }
 }
