@@ -2,6 +2,7 @@ package net.kitz.starsiege.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -34,9 +35,10 @@ public class Player extends Entity {
         SprVolume = new Sprite(txVol, 1, 1);
         SprSpeed = new Sprite(txSpeed, 1, 1);
 
-        SprVolume.setColor(0, 255, 255, 255);
-        SprHealth.setColor(255, 255, 255, 255);
-        SprSpeed.setColor(0, 255, 255, 255);
+        SprHealth.setColor(Color.RED);
+        SprSpeed.setColor(Color.BLUE);
+        SprVolume.setColor(Color.GREEN);
+
     }
 
 
@@ -48,7 +50,6 @@ public class Player extends Entity {
         Movement();
         HudPos();
         EdgeDet();
-
         this.fRot = MathUtils.radiansToDegrees * MathUtils.atan2
                 ((720 - Gdx.input.getY()) - arfRotCorrection[1], Gdx.input.getX() - arfRotCorrection[0]);
 
@@ -68,13 +69,13 @@ public class Player extends Entity {
     }
 
     private void HudPos() {
-        SprHealth.setPosition(arfRotCorrection[0] + 32, getPos().y + 122);
-        SprSpeed.setPosition(arfRotCorrection[0] + 32, getPos().y + 64);
-        SprVolume.setPosition(arfRotCorrection[0] + 32, getPos().y + 32);
+        SprHealth.setPosition(getPos().x + 200, getPos().y + 400);
+        SprSpeed.setPosition(getPos().x + 400, getPos().y + 400);
+        SprVolume.setPosition(getPos().x + 600, getPos().y + 400);
 
-        SprVolume.setScale(30f);
-        SprSpeed.setScale(30f);
-        SprHealth.setScale(30f);
+        SprHealth.setScale(30f, 12f);
+        SprSpeed.setScale(Math.abs(fVelocityX+fVelocityY)*6, 12f);
+        SprVolume.setScale(30f, 12f);
     }
 
     private void Movement() {
@@ -83,36 +84,39 @@ public class Player extends Entity {
         fDirAltX = (float) Math.cos(Math.toRadians(SprPlayer.getRotation() + 180));
         fDirAltY = (float) Math.sin(Math.toRadians(SprPlayer.getRotation() + 180));
 
+        fVelocityX = MathUtils.clamp(fVelocityX, -20, 20);
+        fVelocityY = MathUtils.clamp(fVelocityY, -20, 20);
+
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             if (this.fVelocityX < 1 && this.fVelocityY < 1 && this.fVelocityX > -1 && this.fVelocityY > -1) {
                 this.fVelocityY = 0;
                 this.fVelocityX = 0;
             } else {
-                this.fVelocityY *= 0.99;
-                this.fVelocityX *= 0.99;
+                this.fVelocityY *= 0.98;
+                this.fVelocityX *= 0.98;
             }
         }
         int nPlayerSpeed = 4;
-        if (Gdx.input.isKeyPressed(Input.Keys.A) && fVelocityY < 20) {
+        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             this.fVelocityX += fDirX * nPlayerSpeed / (getdMass() * 3);
             this.fVelocityY += fDirY * nPlayerSpeed / (getdMass() * 3);
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.D) && fVelocityY > -20) {
+        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
             this.fVelocityX -= fDirX * nPlayerSpeed / (getdMass() * 3);
             this.fVelocityY -= fDirY * nPlayerSpeed / (getdMass() * 3);
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.S) && fVelocityY > -20) {
+        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
             this.fVelocityX += fDirAltX * nPlayerSpeed / (getdMass() * 3);
             this.fVelocityY += fDirAltY * nPlayerSpeed / (getdMass() * 3);
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.W) && fVelocityY > -20) {
+        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
             this.fVelocityX -= fDirAltX * nPlayerSpeed / (getdMass() * 3);
             this.fVelocityY -= fDirAltY * nPlayerSpeed / (getdMass() * 3);
         }
-    }
+          }
 
     private void EdgeDet() {
         if (getPos().x < 640)
