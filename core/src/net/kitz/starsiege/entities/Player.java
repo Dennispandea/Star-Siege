@@ -28,7 +28,7 @@ public class Player extends Entity {
         SprPlayer = new Sprite(txPlayer, 124, 108);
 
         Texture txHP = new Texture("bar.png");
-        Texture txVol = new Texture("bar.png");
+        Texture txVol = new Texture("bar.png"); //initialize the bars
         Texture txSpeed = new Texture("bar.png");
 
         SprHealth = new Sprite(txHP, 1, 1);
@@ -70,7 +70,7 @@ public class Player extends Entity {
 
     private void HudPos() {
         SprHealth.setPosition(getPos().x + 200, getPos().y + 400);
-        SprSpeed.setPosition(getPos().x + 400, getPos().y + 400);
+        SprSpeed.setPosition(getPos().x + (300 + Math.abs(fVelocityX + fVelocityY) * 2), getPos().y + 400);
         SprVolume.setPosition(getPos().x + 600, getPos().y + 400);
 
         SprHealth.setScale(30f, 12f);
