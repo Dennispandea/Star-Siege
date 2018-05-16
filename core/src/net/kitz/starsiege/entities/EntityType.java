@@ -9,7 +9,7 @@ public enum EntityType {
     private double dMass;
 
     EntityType(String sID, int nWidth, int nLength, double dMass) {
-        this.sID = sID;
+        this.sID = sID; //the id 
         this.nWidth = nWidth;
         this.nLength = nLength;
         this.dMass = dMass;
