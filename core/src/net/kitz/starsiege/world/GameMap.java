@@ -2,6 +2,7 @@ package net.kitz.starsiege.world;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import net.kitz.starsiege.entities.Asteroid;
 import net.kitz.starsiege.entities.Entity;
 import net.kitz.starsiege.entities.Player;
 
@@ -15,8 +16,8 @@ public abstract class GameMap {
 
     public GameMap() {
         entities = new ArrayList<Entity>();
-        entities.add(new Player(20, 20));
-
+        entities.add(new Player(203, 203));
+        entities.add(new Asteroid(203, 203));
     }
 
 

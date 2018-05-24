@@ -3,6 +3,8 @@ package net.kitz.starsiege.entities;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
+import static net.kitz.starsiege.entities.EntityType.PLAYER;
+
 public abstract class Entity {
 
     private Vector2 pos;
