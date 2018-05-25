@@ -1,5 +1,8 @@
 package net.kitz.starsiege.world;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import net.kitz.starsiege.entities.Asteroid;
@@ -7,17 +10,21 @@ import net.kitz.starsiege.entities.Entity;
 import net.kitz.starsiege.entities.Player;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import static net.kitz.starsiege.world.MapAsteroid.ASTEROID_SIZE;
 
-public abstract class GameMap {
+public abstract class GameMap implements InputProcessor {
+
+    Random rand = new Random();
+    int nEntityCounter = 0, nMaxEntities = 500;
 
     public ArrayList<Entity> entities;
 
     public GameMap() {
-        entities = new ArrayList<Entity>();
+        entities = new ArrayList<Entity>(nMaxEntities);
         entities.add(new Player(203, 203));
-        entities.add(new Asteroid(203, 203));
+        Gdx.input.setInputProcessor(this);
     }
 
 
@@ -30,7 +37,6 @@ public abstract class GameMap {
     public void update(float delta) {
         for (Entity entity : entities) {
             entity.update(delta, -9.8f);
-
         }
     }
 
@@ -87,5 +93,50 @@ public abstract class GameMap {
     public int nPixelHeight() {
         return this.getHeight() * ASTEROID_SIZE;
 
+    }
+
+    @Override
+    public boolean keyDown(int keycode) {
+        if (keycode == Input.Keys.F) {
+            nEntityCounter += 1;
+            entities.add(new Asteroid(rand.nextInt(240) + 30, rand.nextInt(240) + 30,
+                    rand.nextFloat() + 1, 2, 2));
+        }
+        return false;
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(int amount) {
+        return false;
     }
 }

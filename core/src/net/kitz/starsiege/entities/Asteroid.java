@@ -7,25 +7,25 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 
 public class Asteroid extends Entity {
 
     private float arfRotCorrection[] = new float[2];
-    private int nCurActive;
     private Sprite sprAsteroid;
 
 
-    public Asteroid(float x, float y) {
-        super(x, y, EntityType.PLAYER);
+    public Asteroid(float x, float y, float nSize, float nVelx, float nVely) {
+        super(x, y, EntityType.ASTEROID);
         InitSpr();
-        sprAsteroid.setOrigin(62, 54);
-        sprAsteroid.setScale(0.3f);
+        sprAsteroid.setOrigin(16, 16);
+        sprAsteroid.setScale(nSize);
 
     }
 
     private void InitSpr() {
-        Texture txPlayer = new Texture("Ship.png");
-        sprAsteroid = new Sprite(txPlayer, 124, 108);
+        Texture txAsteroid = new Texture("Asteroids/Asteroid_worthless.png");
+        sprAsteroid = new Sprite(txAsteroid, 32, 32);
     }
 
 
@@ -33,6 +33,7 @@ public class Asteroid extends Entity {
     public void update(float fDeltaTime, float fGravity) {
 
         sprAsteroid.setPosition(getPos().x, getPos().y);
+
 
         EdgeDet();
         this.fRot = MathUtils.radiansToDegrees * MathUtils.atan2
