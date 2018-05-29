@@ -17,13 +17,18 @@ import static net.kitz.starsiege.world.MapAsteroid.ASTEROID_SIZE;
 public abstract class GameMap implements InputProcessor {
 
     Random rand = new Random();
-    int nEntityCounter = 0, nMaxEntities = 500;
+    int nEntityCounter = 0;
 
     public ArrayList<Entity> entities;
 
     public GameMap() {
-        entities = new ArrayList<Entity>(nMaxEntities);
+        entities = new ArrayList<>();
         entities.add(new Player(203, 203));
+        while (nEntityCounter < 500) {
+            nEntityCounter += 1;
+            entities.add(new Asteroid(rand.nextInt(16255), rand.nextInt(16255),
+                    rand.nextFloat() + 1, rand.nextFloat() + 4, 2, 2));
+        }
         Gdx.input.setInputProcessor(this);
     }
 
@@ -37,6 +42,9 @@ public abstract class GameMap implements InputProcessor {
     public void update(float delta) {
         for (Entity entity : entities) {
             entity.update(delta, -9.8f);
+        }
+        for (int i = 1; i < nEntityCounter; i++) { //todo:read X&&Y from every asteroid and remove ones with x||y < 0
+
         }
     }
 
@@ -99,8 +107,8 @@ public abstract class GameMap implements InputProcessor {
     public boolean keyDown(int keycode) {
         if (keycode == Input.Keys.F) {
             nEntityCounter += 1;
-            entities.add(new Asteroid(rand.nextInt(240) + 30, rand.nextInt(240) + 30,
-                    rand.nextFloat() + 1, 2, 2));
+            entities.add(new Asteroid(rand.nextInt(16255), rand.nextInt(16255),
+                    rand.nextFloat() + 1, rand.nextFloat() + 4, 2, 2));
         }
         return false;
     }
