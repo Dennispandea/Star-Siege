@@ -19,7 +19,6 @@ public class Starsiege extends ApplicationAdapter {
     Player player;
     Music music;
 
-
     @Override
     public void create() {
         batch = new SpriteBatch();

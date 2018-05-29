@@ -12,7 +12,7 @@ public class Player extends Entity {
 
     private float arfRotCorrection[] = new float[2];
     private float fDirX, fDirY, fDirAltX, fDirAltY;
-    private Sprite sprPlayer, sprHealth, sprVolume, sprSpeed;
+    public Sprite sprPlayer, sprHealth, sprVolume, sprSpeed;
 
 
     public Player(float x, float y) {
@@ -73,6 +73,7 @@ public class Player extends Entity {
         sprHealth.setPosition(getPos().x + 200, getPos().y + 400);
         sprSpeed.setPosition(getPos().x + (300 + Math.abs(fVelocityX + fVelocityY) * 2), getPos().y + 400);
         sprVolume.setPosition(getPos().x + 600, getPos().y + 400);
+
 
         sprHealth.setScale(30f, 12f);
         sprSpeed.setScale(Math.abs(fVelocityX + fVelocityY) * 6, 12f);
@@ -142,4 +143,5 @@ public class Player extends Entity {
         sprSpeed.draw(batch);
         sprHealth.draw(batch);
     }
+
 }

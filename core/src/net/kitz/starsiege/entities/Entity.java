@@ -8,10 +8,10 @@ import static net.kitz.starsiege.entities.EntityType.PLAYER;
 public abstract class Entity {
 
     private Vector2 pos;
-    protected EntityType type;
-    protected float fVelocityY = 0;
-    protected float fRot;
-    protected float fVelocityX = 0;
+    private EntityType type;
+    float fVelocityY = 0;
+    float fRot;
+    float fVelocityX = 0;
 
     Entity(float x, float y, EntityType type) {
         this.setPos(new Vector2(x, y));
@@ -40,7 +40,7 @@ public abstract class Entity {
     public abstract void render(SpriteBatch batch);
 
 
-    public void setPos(Vector2 pos) {
+    private void setPos(Vector2 pos) {
         this.pos = pos;
     }
 

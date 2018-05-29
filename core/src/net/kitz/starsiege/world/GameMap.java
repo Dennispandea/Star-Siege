@@ -16,12 +16,12 @@ import static net.kitz.starsiege.world.MapAsteroid.ASTEROID_SIZE;
 
 public abstract class GameMap implements InputProcessor {
 
-    Random rand = new Random();
-    int nEntityCounter = 0;
+    private Random rand = new Random();
+    private int nEntityCounter = 0;
 
     public ArrayList<Entity> entities;
 
-    public GameMap() {
+    GameMap() {
         entities = new ArrayList<>();
         entities.add(new Player(203, 203));
         while (nEntityCounter < 500) {
@@ -43,37 +43,34 @@ public abstract class GameMap implements InputProcessor {
         for (Entity entity : entities) {
             entity.update(delta, -9.8f);
         }
-        for (int i = 1; i < nEntityCounter; i++) { //todo:read X&&Y from every asteroid and remove ones with x||y < 0
-
-        }
     }
 
     public abstract void dispose();
 
+//
+//    /**
+//     * Gets asteroid by position within space at layer selected.
+//     *
+//     * @param nLayer
+//     * @param x
+//     * @param y
+//     * @return
+//     */
+//    public MapAsteroid getAsteroidbyLocation(int nLayer, float x, float y) {
+//        return this.getAsteroidbyCoordinate(nLayer, (int) (x / ASTEROID_SIZE), (int) (y / ASTEROID_SIZE));
+//    }
+//
+//    /**
+//     * Gets asteroid at it's coordinate location within space at layer selected.
+//     *
+//     * @param layer
+//     * @param col
+//     * @param row
+//     * @return
+//     */
+//    public abstract MapAsteroid getAsteroidbyCoordinate(int layer, int col, int row);
 
-    /**
-     * Gets asteroid by position within space at layer selected.
-     *
-     * @param nLayer
-     * @param x
-     * @param y
-     * @return
-     */
-    public MapAsteroid getAsteroidbyLocation(int nLayer, float x, float y) {
-        return this.getAsteroidbyCoordinate(nLayer, (int) (x / ASTEROID_SIZE), (int) (y / ASTEROID_SIZE));
-    }
-
-    /**
-     * Gets asteroid at it's coordinate location within space at layer selected.
-     *
-     * @param layer
-     * @param col
-     * @param row
-     * @return
-     */
-    public abstract MapAsteroid getAsteroidbyCoordinate(int layer, int col, int row);
-
-    public boolean isColliding(float x, float y, int nWidth, int nLength) {
+/*    public boolean isColliding(float x, float y, int nWidth, int nLength) {
         if (x < 0 || y < 0 || x + nWidth > nPixelWidth() || y + nLength > nPixelHeight())
             return true;
         for (int row = (int) (y / ASTEROID_SIZE); row < Math.ceil((y + nLength) / ASTEROID_SIZE); row++) {
@@ -85,23 +82,23 @@ public abstract class GameMap implements InputProcessor {
             }
         }
         return false;
-    }
+    }*/
 
     public abstract int getWidth();
 
     public abstract int getHeight();
 
-    public abstract int getLayers();
-
-    public int nPixelWidth() {
-        return this.getWidth() * ASTEROID_SIZE;
-
-    }
-
-    public int nPixelHeight() {
-        return this.getHeight() * ASTEROID_SIZE;
-
-    }
+//    public abstract int getLayers();
+//
+//    public int nPixelWidth() {
+//        return this.getWidth() * ASTEROID_SIZE;
+//
+//    }
+//
+//    public int nPixelHeight() {
+//        return this.getHeight() * ASTEROID_SIZE;
+//
+//    }
 
     @Override
     public boolean keyDown(int keycode) {

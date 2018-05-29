@@ -40,20 +40,20 @@ public class TiledGameMap extends GameMap {
         tiledMap.dispose();
     }
 
-    @Override
-    public MapAsteroid getAsteroidbyCoordinate(int layer, int col, int row) {
-        TiledMapTileLayer.Cell cell = ((TiledMapTileLayer) tiledMap.getLayers().get(layer)).getCell(col, row);
-
-        if (cell != null) {
-            TiledMapTile tile = cell.getTile();
-
-            if (tile != null) {
-                int nID = tile.getId();
-                return MapAsteroid.getAsteroidbyID(nID);
-            }
-        }
-        return null;
-    }
+//    @Override
+//    public MapAsteroid getAsteroidbyCoordinate(int layer, int col, int row) {
+//        TiledMapTileLayer.Cell cell = ((TiledMapTileLayer) tiledMap.getLayers().get(layer)).getCell(col, row);
+//
+//        if (cell != null) {
+//            TiledMapTile tile = cell.getTile();
+//
+//            if (tile != null) {
+//                int nID = tile.getId();
+//                return MapAsteroid.getAsteroidbyID(nID);
+//            }
+//        }
+//        return null;
+//    }
 
     @Override
     public int getWidth() {
@@ -65,8 +65,8 @@ public class TiledGameMap extends GameMap {
         return ((TiledMapTileLayer) tiledMap.getLayers().get(0)).getHeight();
     }
 
-    @Override
-    public int getLayers() {
-        return tiledMap.getLayers().getCount();
-    }
+//    @Override
+//    public int getLayers() {
+//        return tiledMap.getLayers().getCount();
+//    }
 }
