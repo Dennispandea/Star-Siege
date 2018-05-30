@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
-import net.kitz.starsiege.entities.Player;
+import net.kitz.starsiege.entities.SprPlayer;
 import net.kitz.starsiege.world.GameMap;
 import net.kitz.starsiege.world.TiledGameMap;
 
@@ -16,7 +16,7 @@ public class Starsiege extends ApplicationAdapter {
     private SpriteBatch batch;
     private OrthographicCamera cam;
     GameMap gameMap;
-    Player player;
+    SprPlayer sprPlayer;
     Music music;
 
     @Override
@@ -33,7 +33,7 @@ public class Starsiege extends ApplicationAdapter {
 
         gameMap = new TiledGameMap();
 
-        player = (Player) gameMap.entities.get(0);
+        sprPlayer = (SprPlayer) gameMap.entities.get(0);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class Starsiege extends ApplicationAdapter {
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        cam.position.set(MathUtils.round(player.getPos().x + (player.getWidth() / 2)), MathUtils.round(player.getPos().y + (player.getLength() / 2)), 0);
+        cam.position.set(MathUtils.round(sprPlayer.getPos().x + (sprPlayer.getWidth() / 2)), MathUtils.round(sprPlayer.getPos().y + (sprPlayer.getLength() / 2)), 0);
         cam.position.x = MathUtils.clamp(cam.position.x, 640, 15744);
         cam.position.y = MathUtils.clamp(cam.position.y, 360, 16024);
 

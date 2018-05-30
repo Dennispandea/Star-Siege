@@ -5,14 +5,12 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import net.kitz.starsiege.entities.Asteroid;
+import net.kitz.starsiege.entities.SprAsteroid;
 import net.kitz.starsiege.entities.Entity;
-import net.kitz.starsiege.entities.Player;
+import net.kitz.starsiege.entities.SprPlayer;
 
 import java.util.ArrayList;
 import java.util.Random;
-
-import static net.kitz.starsiege.world.MapAsteroid.ASTEROID_SIZE;
 
 public abstract class GameMap implements InputProcessor {
 
@@ -23,11 +21,13 @@ public abstract class GameMap implements InputProcessor {
 
     GameMap() {
         entities = new ArrayList<>();
-        entities.add(new Player(203, 203));
+        entities.add(new SprPlayer(203, 203));
         while (nEntityCounter < 500) {
             nEntityCounter += 1;
-            entities.add(new Asteroid(rand.nextInt(16255), rand.nextInt(16255),
-                    rand.nextFloat() + 1, rand.nextFloat() + 4, 2, 2));
+            entities.add(new SprAsteroid
+                    (rand.nextInt(16255), rand.nextInt(16255),
+                            rand.nextFloat() + 1, rand.nextFloat() + 4,
+                            2, 2, rand.nextInt(12)));
         }
         Gdx.input.setInputProcessor(this);
     }
@@ -104,8 +104,8 @@ public abstract class GameMap implements InputProcessor {
     public boolean keyDown(int keycode) {
         if (keycode == Input.Keys.F) {
             nEntityCounter += 1;
-            entities.add(new Asteroid(rand.nextInt(16255), rand.nextInt(16255),
-                    rand.nextFloat() + 1, rand.nextFloat() + 4, 2, 2));
+            entities.add(new SprAsteroid(rand.nextInt(16255), rand.nextInt(16255),
+                    rand.nextFloat() + 1, rand.nextFloat() + 4, 2, 2, rand.nextInt(12)));
         }
         return false;
     }
