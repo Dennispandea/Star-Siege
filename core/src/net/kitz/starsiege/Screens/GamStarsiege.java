@@ -1,23 +1,29 @@
-package net.kitz.starsiege;
+package net.kitz.starsiege.Screens;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import net.kitz.starsiege.GameStartMenu;
 import net.kitz.starsiege.entities.SprPlayer;
 import net.kitz.starsiege.world.GameMap;
 import net.kitz.starsiege.world.TiledGameMap;
 
-public class Starsiege extends ApplicationAdapter {
+public class GamStarsiege extends ApplicationAdapter implements Screen {
 
     private SpriteBatch batch;
     private OrthographicCamera cam;
     GameMap gameMap;
     SprPlayer sprPlayer;
     Music music;
+
+    public GamStarsiege(GameStartMenu _gameStartMenu) {
+        GameStartMenu gameStartMenu = _gameStartMenu;
+    }
 
     @Override
     public void create() {
@@ -50,6 +56,21 @@ public class Starsiege extends ApplicationAdapter {
         cam.update();
         gameMap.update(Gdx.graphics.getDeltaTime());
         gameMap.render(cam, batch);
+    }
+
+    @Override
+    public void show() {
+
+    }
+
+    @Override
+    public void render(float delta) {
+
+    }
+
+    @Override
+    public void hide() {
+
     }
 
     @Override
