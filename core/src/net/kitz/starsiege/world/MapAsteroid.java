@@ -62,7 +62,7 @@ public enum MapAsteroid {
 
     private static HashMap<Integer, MapAsteroid> AsteroidID;
 
-    static {
+   /* static {
         AsteroidID = new HashMap<Integer, MapAsteroid>();
         for (MapAsteroid asteroidType : MapAsteroid.values()) {
             AsteroidID.put(asteroidType.getnAsteroidID(), asteroidType);
@@ -73,6 +73,6 @@ public enum MapAsteroid {
     public static MapAsteroid getAsteroidbyID(int nID) {
         return AsteroidID.get(nID);
 
-    }
+    }*/
 }
 

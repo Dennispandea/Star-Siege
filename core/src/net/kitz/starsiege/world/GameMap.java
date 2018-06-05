@@ -8,11 +8,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import net.kitz.starsiege.entities.Asteroid;
 import net.kitz.starsiege.entities.Entity;
 import net.kitz.starsiege.entities.Player;
-
 import java.util.ArrayList;
 import java.util.Random;
-
-import static net.kitz.starsiege.world.MapAsteroid.ASTEROID_SIZE;
+//import static net.kitz.starsiege.world.MapAsteroid.ASTEROID_SIZE;
 
 public abstract class GameMap implements InputProcessor {
 
