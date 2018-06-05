@@ -39,7 +39,7 @@ public abstract class GameMap implements InputProcessor {
 
     public void update(float delta) {
         for (Entity entity : entities) {
-            entity.update(delta, -9.8f);
+            entity.update(delta);
         }
     }
 

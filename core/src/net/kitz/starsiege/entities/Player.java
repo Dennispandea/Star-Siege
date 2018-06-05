@@ -43,9 +43,10 @@ public class Player extends Entity {
 
 
     @Override
-    public void update(float fDeltaTime, float fGravity) {
+    public void update(float fDeltaTime) {
 
         sprPlayer.setPosition(getPos().x, getPos().y);
+isHit();
 
         Movement();
         HudPos();
@@ -66,7 +67,17 @@ public class Player extends Entity {
         sprPlayer.setRotation(this.fRot);
 
 
-        super.update(fDeltaTime, fGravity);
+        super.update(fDeltaTime);
+    }
+
+    public void isHit() {
+        for (int i = 1; i < 500; i++) {
+            if (getX() + getWidth() == gameMap.entities.get(i).getX() + gameMap.entities.get(i).getLength()
+                    || getY() + getLength() == gameMap.entities.get(i).getY() + gameMap.entities.get(i).getLength()) {
+                fVelocityX *= -.8;
+                fVelocityY *= -.8;
+            }
+        }
     }
 
     private void HudPos() {

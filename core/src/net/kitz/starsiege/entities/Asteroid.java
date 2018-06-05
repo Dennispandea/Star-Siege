@@ -27,10 +27,10 @@ public class Asteroid extends Entity {
 
 
     @Override
-    public void update(float fDeltaTime, float fGravity) {
+    public void update(float fDeltaTime) {
         sprAsteroid.setPosition(getPos().x, getPos().y);
         sprAsteroid.rotate(fsRot);
-        super.update(fDeltaTime, fGravity);
+        super.update(fDeltaTime);
     }
 
     @Override

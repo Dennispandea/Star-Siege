@@ -20,7 +20,7 @@ public abstract class Entity {
         this.type = type;
     }
 
-    public void update(float fDeltaTime, float fGravity) {
+    public void update(float fDeltaTime) {
         if (getPos().x < 0) {
             getPos().x += 1;
             this.fVelocityX = 0;
@@ -37,21 +37,12 @@ public abstract class Entity {
             getPos().y += this.fVelocityY;
             getPos().x += this.fVelocityX;
         }
-        isHit();
+
     }
 
     public abstract void render(SpriteBatch batch);
 
-    public void isHit() {
-        player = (Player) gameMap.entities.get(0);
-        for (int i = 1; i < 500; i++) {
-            if (player.getX() + player.getWidth() == gameMap.entities.get(i).getX() + gameMap.entities.get(i).getLength()
-                    || player.getY() + player.getLength() == gameMap.entities.get(i).getY() + gameMap.entities.get(i).getLength()) {
-                player.fVelocityX *= -.8;
-                player.fVelocityY *= -.8;
-            }
-        }
-    }
+
 
     private void setPos(Vector2 pos) {
         this.pos = pos;
