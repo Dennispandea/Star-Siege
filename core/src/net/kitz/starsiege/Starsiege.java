@@ -19,6 +19,10 @@ public class Starsiege extends ApplicationAdapter {
     Player player;
     Music music;
 
+    public GameMap getGameMap() {
+        return gameMap;
+    }
+
     @Override
     public void create() {
         batch = new SpriteBatch();

@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import net.kitz.starsiege.world.GameMap;
 
 public class Player extends Entity {
 
@@ -15,8 +16,8 @@ public class Player extends Entity {
     public Sprite sprPlayer, sprHealth, sprVolume, sprSpeed;
 
 
-    public Player(float x, float y) {
-        super(x, y, EntityType.PLAYER);
+    public Player(float x, float y, GameMap gameMap) {
+        super(x, y, EntityType.PLAYER, gameMap);
         InitSpr();
         sprPlayer.setOrigin(62, 54);
         sprPlayer.setScale(0.3f);
@@ -46,7 +47,6 @@ public class Player extends Entity {
     public void update(float fDeltaTime) {
 
         sprPlayer.setPosition(getPos().x, getPos().y);
-isHit();
 
         Movement();
         HudPos();
@@ -70,15 +70,7 @@ isHit();
         super.update(fDeltaTime);
     }
 
-    public void isHit() {
-        for (int i = 1; i < 500; i++) {
-            if (getX() + getWidth() == gameMap.entities.get(i).getX() + gameMap.entities.get(i).getLength()
-                    || getY() + getLength() == gameMap.entities.get(i).getY() + gameMap.entities.get(i).getLength()) {
-                fVelocityX *= -.8;
-                fVelocityY *= -.8;
-            }
-        }
-    }
+
 
     private void HudPos() {
         sprHealth.setPosition(getPos().x + 200, getPos().y + 400);

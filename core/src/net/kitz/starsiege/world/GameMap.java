@@ -10,7 +10,7 @@ import net.kitz.starsiege.entities.Entity;
 import net.kitz.starsiege.entities.Player;
 import java.util.ArrayList;
 import java.util.Random;
-//import static net.kitz.starsiege.world.MapAsteroid.ASTEROID_SIZE;
+
 
 public abstract class GameMap implements InputProcessor {
 
@@ -21,11 +21,11 @@ public abstract class GameMap implements InputProcessor {
 
     GameMap() {
         entities = new ArrayList<>();
-        entities.add(new Player(203, 203));
+        entities.add(new Player(203, 203, this));
         while (nEntityCounter < 500) {
             nEntityCounter += 1;
             entities.add(new Asteroid(rand.nextInt(16255), rand.nextInt(16255),
-                    rand.nextFloat() + 1, rand.nextFloat() + 4, 2, 2));
+                    rand.nextFloat() + 1, rand.nextFloat() + 4, this));
         }
         Gdx.input.setInputProcessor(this);
     }
@@ -40,6 +40,7 @@ public abstract class GameMap implements InputProcessor {
     public void update(float delta) {
         for (Entity entity : entities) {
             entity.update(delta);
+
         }
     }
 
@@ -103,7 +104,7 @@ public abstract class GameMap implements InputProcessor {
         if (keycode == Input.Keys.F) {
             nEntityCounter += 1;
             entities.add(new Asteroid(rand.nextInt(16255), rand.nextInt(16255),
-                    rand.nextFloat() + 1, rand.nextFloat() + 4, 2, 2));
+                    rand.nextFloat() + 1, rand.nextFloat() + 4, this));
         }
         return false;
     }

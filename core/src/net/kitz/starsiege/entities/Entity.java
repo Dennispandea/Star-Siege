@@ -7,17 +7,16 @@ import net.kitz.starsiege.world.GameMap;
 
 public abstract class Entity {
     GameMap gameMap;
-    Player player;
-
     private Vector2 pos;
     private EntityType type;
     float fVelocityY = 0;
     float fRot;
     float fVelocityX = 0;
 
-    Entity(float x, float y, EntityType type) {
+    Entity(float x, float y, EntityType type, GameMap gameMap) {
         this.setPos(new Vector2(x, y));
         this.type = type;
+        this.gameMap = gameMap;
     }
 
     public void update(float fDeltaTime) {
