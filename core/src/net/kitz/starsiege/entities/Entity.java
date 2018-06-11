@@ -2,21 +2,24 @@ package net.kitz.starsiege.entities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import net.kitz.starsiege.world.GameMap;
+
 
 public abstract class Entity {
-
+    GameMap gameMap;
     private Vector2 pos;
-    protected EntityType type;
-    protected float fVelocityY = 0;
-    protected float fRot;
-    protected float fVelocityX = 0;
+    private EntityType type;
+    float fVelocityY = 0;
+    float fRot;
+    float fVelocityX = 0;
 
-    Entity(float x, float y, EntityType type) {
+    Entity(float x, float y, EntityType type, GameMap gameMap) {
         this.setPos(new Vector2(x, y));
         this.type = type;
+        this.gameMap = gameMap;
     }
 
-    public void update(float fDeltaTime, float fGravity) {
+    public void update(float fDeltaTime) {
         if (getPos().x < 0) {
             getPos().x += 1;
             this.fVelocityX = 0;
@@ -33,12 +36,14 @@ public abstract class Entity {
             getPos().y += this.fVelocityY;
             getPos().x += this.fVelocityX;
         }
+
     }
 
     public abstract void render(SpriteBatch batch);
 
 
-    public void setPos(Vector2 pos) {
+
+    private void setPos(Vector2 pos) {
         this.pos = pos;
     }
 
