@@ -71,12 +71,16 @@ public class Player extends Entity {
     }
 
 
-
     private void HudPos() {
-        sprHealth.setPosition(getPos().x + 200, getPos().y + 400);
-        sprSpeed.setPosition(getPos().x + (300 + Math.abs(fVelocityX + fVelocityY) * 2), getPos().y + 400);
-        sprVolume.setPosition(getPos().x + 600, getPos().y + 400);
 
+        sprHealth.setPosition(MathUtils.clamp(getPos().x + 200, 0, 15656),
+                MathUtils.clamp(getPos().y + 400, 0, 16350));
+
+        sprSpeed.setPosition(MathUtils.clamp(getPos().x + 400, 0, 15856),
+                MathUtils.clamp(getPos().y + 400, 0, 16350));
+        sprVolume.setPosition(MathUtils.clamp(getPos().x + 600, 0, 16056),
+                MathUtils.clamp(getPos().y + 400, 0, 16350));
+//x16256.109 y16313.005
 
         sprHealth.setScale(30f, 12f);
         sprSpeed.setScale(Math.abs(fVelocityX + fVelocityY) * 6, 12f);
@@ -125,10 +129,10 @@ public class Player extends Entity {
 
     private void EdgeDet() {
         if (getPos().x > 15684)
-            arfRotCorrection[0] = getPos().x - (16380);
+            arfRotCorrection[0] = getPos().x + (16380);
         else arfRotCorrection[0] = 640;
         if (getPos().y > 15684)
-            arfRotCorrection[1] = getPos().y - (16380);
+            arfRotCorrection[1] = getPos().y + (16380);
         else arfRotCorrection[1] = 360;
         if (getPos().x < 640)
             arfRotCorrection[0] = getPos().x + 60;
