@@ -25,7 +25,7 @@ public abstract class GameMap implements InputProcessor {
         while (nEntityCounter < 500) {
             nEntityCounter += 1;
             entities.add(new Asteroid(rand.nextInt(16255), rand.nextInt(16255),
-                    rand.nextFloat() + 1, rand.nextFloat() + 4, this));
+                    rand.nextFloat() + 1, rand.nextFloat() + 4,rand.nextInt(13), this));
         }
         Gdx.input.setInputProcessor(this);
     }
@@ -101,11 +101,6 @@ public abstract class GameMap implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
-        if (keycode == Input.Keys.F) {
-            nEntityCounter += 1;
-            entities.add(new Asteroid(rand.nextInt(16255), rand.nextInt(16255),
-                    rand.nextFloat() + 1, rand.nextFloat() + 4, this));
-        }
         return false;
     }
 
