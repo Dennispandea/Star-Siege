@@ -1,7 +1,6 @@
 package net.kitz.starsiege.world;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -14,18 +13,18 @@ import java.util.Random;
 
 public abstract class GameMap implements InputProcessor {
 
-    private Random rand = new Random();
     private int nEntityCounter = 0;
 
     public ArrayList<Entity> entities;
 
     GameMap() {
+        Random rand = new Random();
         entities = new ArrayList<>();
         entities.add(new Player(203, 203, this));
         while (nEntityCounter < 500) {
             nEntityCounter += 1;
             entities.add(new Asteroid(rand.nextInt(16255), rand.nextInt(16255),
-                    rand.nextFloat() + 1, rand.nextFloat() + 4,rand.nextInt(13), this));
+                    rand.nextFloat() + 1, rand.nextFloat() + 4, rand.nextInt(13), this));
         }
         Gdx.input.setInputProcessor(this);
     }

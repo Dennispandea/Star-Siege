@@ -7,12 +7,15 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import net.kitz.starsiege.world.GameMap;
 
 public class Player extends Entity {
 
     private float arfRotCorrection[] = new float[2];
     private float fDirX, fDirY, fDirAltX, fDirAltY;
+    Vector3 Mousepos = new Vector3(0, 0, 3);
     public Sprite sprPlayer, sprHealth, sprVolume, sprSpeed;
 
 
