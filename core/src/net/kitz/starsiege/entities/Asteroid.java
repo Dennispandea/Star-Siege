@@ -1,5 +1,7 @@
 package net.kitz.starsiege.entities;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -14,7 +16,7 @@ public class Asteroid extends Entity {
     Player player;
 
 
-    public Asteroid(float x, float y, float nSize, float fRot,int ntxChoose, GameMap gameMap) {
+    public Asteroid(float x, float y, float nSize, float fRot, int ntxChoose, GameMap gameMap) {
         super(x, y, EntityType.ASTEROID, gameMap);
         InitSpr();
         sprAsteroid.setOrigin(16, 16);
@@ -38,6 +40,7 @@ public class Asteroid extends Entity {
         isHit();
         super.update(fDeltaTime);
     }
+
     private void InitSpr(int ntxChoose) {
         Texture txAsteroid[] = new Texture[13];
         txAsteroid[0] = new Texture("Asteroids/Asteroid_worthless.png");
@@ -55,13 +58,13 @@ public class Asteroid extends Entity {
         txAsteroid[12] = new Texture("Asteroids/Asteroid_bauxite.png");
         sprAsteroid = new Sprite(txAsteroid[ntxChoose], 32, 32);
     }
+
     private void isHit() {
 
         player = (Player) gameMap.entities.get(0);
-        if (getX() + getWidth() == player.getX() + player.getWidth()
-                || getY() + getLength() == player.getY() + player.getLength()) {
-            player.fVelocityX *= -0.3;
-            player.fVelocityY *= -0.3;
+        if (sprAsteroid.getBoundingRectangle().overlaps(player.sprPlayer.getBoundingRectangle())||(Gdx.input.isKeyPressed(Input.Keys.L))) {
+            player.fVelocityX *= 3;
+            player.fVelocityY *= 3;
         }
     }
 
