@@ -15,7 +15,6 @@ public class Asteroid extends Entity {
     private Sprite sprAsteroid;
     Player player;
 
-
     public Asteroid(float x, float y, float nSize, float fRot, int ntxChoose, GameMap gameMap) {
         super(x, y, EntityType.ASTEROID, gameMap);
         InitSpr();
@@ -31,7 +30,6 @@ public class Asteroid extends Entity {
         Texture txAsteroid = new Texture("Asteroids/Asteroid_worthless.png");
         sprAsteroid = new Sprite(txAsteroid, 32, 32);
     }
-
 
     @Override
     public void update(float fDeltaTime) {
@@ -62,9 +60,9 @@ public class Asteroid extends Entity {
     private void isHit() {
 
         player = (Player) gameMap.entities.get(0);
-        if (sprAsteroid.getBoundingRectangle().overlaps(player.sprPlayer.getBoundingRectangle())||(Gdx.input.isKeyJustPressed(Input.Keys.L))) {
-            player.fVelocityX *= 3;
-            player.fVelocityY *= 3;
+        if (sprAsteroid.getBoundingRectangle().overlaps(player.sprPlayer.getBoundingRectangle()) || (Gdx.input.isKeyJustPressed(Input.Keys.L))) {
+            player.fVelocityX -= 3;
+            player.fVelocityY -= 3;
         }
     }
 
