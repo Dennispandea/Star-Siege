@@ -62,7 +62,7 @@ public class Asteroid extends Entity {
     private void isHit() {
 
         player = (Player) gameMap.entities.get(0);
-        if (sprAsteroid.getBoundingRectangle().overlaps(player.sprPlayer.getBoundingRectangle())||(Gdx.input.isKeyPressed(Input.Keys.L))) {
+        if (sprAsteroid.getBoundingRectangle().overlaps(player.sprPlayer.getBoundingRectangle())||(Gdx.input.isKeyJustPressed(Input.Keys.L))) {
             player.fVelocityX *= 3;
             player.fVelocityY *= 3;
         }

@@ -3,7 +3,8 @@ package net.kitz.starsiege.entities;
 public enum EntityType {
 
     PLAYER("PlayerShip", 124, 108, 20),
-    ASTEROID("Asteroid", 32, 32, 80);
+    ASTEROID("Asteroid", 32, 32, 80),
+    LASERBEAM("Laser Bullet", 2, 8, 0);
 
     private String sID;
     private int nWidth, nLength;

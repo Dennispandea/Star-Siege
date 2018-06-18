@@ -2,7 +2,7 @@ package net.kitz.starsiege.entities;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
-public abstract class GameItems {
+public abstract class GameItems { // not in use~
 
 
     public abstract void render(OrthographicCamera camera);

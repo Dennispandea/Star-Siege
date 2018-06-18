@@ -15,16 +15,14 @@ public class Player extends Entity {
 
     private float arfRotCorrection[] = new float[2];
     private float fDirX, fDirY, fDirAltX, fDirAltY;
-    Vector3 Mousepos = new Vector3(0, 0, 3);
     public Sprite sprPlayer, sprHealth, sprVolume, sprSpeed;
-
+    int nPlayerSpeed = 4;
 
     public Player(float x, float y, GameMap gameMap) {
         super(x, y, EntityType.PLAYER, gameMap);
         InitSpr();
         sprPlayer.setOrigin(62, 54);
         sprPlayer.setScale(0.3f);
-
     }
 
     private void InitSpr() {
@@ -78,15 +76,13 @@ public class Player extends Entity {
 
         sprHealth.setPosition(MathUtils.clamp(getPos().x + 200, 0, 15656),
                 MathUtils.clamp(getPos().y + 400, 0, 16350));
-
         sprSpeed.setPosition(MathUtils.clamp(getPos().x + 400, 0, 15856),
                 MathUtils.clamp(getPos().y + 400, 0, 16350));
         sprVolume.setPosition(MathUtils.clamp(getPos().x + 600, 0, 16056),
                 MathUtils.clamp(getPos().y + 400, 0, 16350));
 //x16256.109 y16313.005
-
         sprHealth.setScale(30f, 12f);
-        sprSpeed.setScale(Math.abs(fVelocityX + fVelocityY) * 6, 12f);
+        sprSpeed.setScale((Math.abs(fVelocityX) + Math.abs(fVelocityY) * 6), 12f);
         sprVolume.setScale(30f, 12f);
     }
 
@@ -96,8 +92,8 @@ public class Player extends Entity {
         fDirAltX = (float) Math.cos(Math.toRadians(sprPlayer.getRotation() + 180));
         fDirAltY = (float) Math.sin(Math.toRadians(sprPlayer.getRotation() + 180));
 
-        fVelocityX = MathUtils.clamp(fVelocityX, -20, 20);
-        fVelocityY = MathUtils.clamp(fVelocityY, -20, 20);
+       fVelocityX = MathUtils.clamp(fVelocityX, -20, 20);
+       fVelocityY = MathUtils.clamp(fVelocityY, -20, 20);
 
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             if (this.fVelocityX < 1 && this.fVelocityY < 1 && this.fVelocityX > -1 && this.fVelocityY > -1) {
@@ -108,7 +104,7 @@ public class Player extends Entity {
                 this.fVelocityX *= 0.98;
             }
         }
-        int nPlayerSpeed = 4;
+
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             this.fVelocityX += fDirX * nPlayerSpeed / (getdMass() * 3);
             this.fVelocityY += fDirY * nPlayerSpeed / (getdMass() * 3);

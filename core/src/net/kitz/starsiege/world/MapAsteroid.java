@@ -2,7 +2,7 @@ package net.kitz.starsiege.world;
 
 import java.util.HashMap;
 
-public enum MapAsteroid {
+public enum MapAsteroid { //not in use
     //                id,ore,amount,health,cooldown
     ASTEROID_WORTHLESS(0, 0, 0, 50, 300),
     //BASE METALS

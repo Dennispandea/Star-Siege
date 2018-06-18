@@ -20,7 +20,7 @@ public abstract class Entity {
     }
 
     public void update(float fDeltaTime) {
-        if (getPos().x < 0) {
+       /* if (getPos().x < 0) {
             getPos().x += 1;
             this.fVelocityX = 0;
         } else if (getPos().x + getWidth() > 16380) {
@@ -32,15 +32,14 @@ public abstract class Entity {
         } else if (getPos().y + getLength() > 16380) {
             this.fVelocityY = 0;
             getPos().y -= 1;
-        } else {
+        } else {*/
             getPos().y += this.fVelocityY;
             getPos().x += this.fVelocityX;
-        }
+        //}
 
     }
 
     public abstract void render(SpriteBatch batch);
-
 
 
     private void setPos(Vector2 pos) {
